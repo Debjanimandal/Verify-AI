@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './hooks/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -35,10 +37,10 @@ module.exports = {
         'fade-in-up': 'fade-in-up 0.5s ease forwards',
       },
       maxWidth: {
-        'content': '900px',
-        'wide': '1200px',
+        content: '900px',
+        wide: '1200px',
       },
     },
   },
   plugins: [],
-}
+};
