@@ -23,7 +23,7 @@ services:
       - key: EMBEDDING_MODEL
         value: models/text-embedding-004
       - key: ALLOWED_ORIGINS
-        sync: false
+        value: "https://verify-ai-neon.vercel.app,http://localhost:3000"
       - key: LOG_LEVEL
         value: INFO
       - key: MAX_RETRIES
