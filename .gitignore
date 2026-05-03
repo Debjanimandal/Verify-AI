@@ -1,0 +1,41 @@
+# FairZero .gitignore
+
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.production
+.env.*.local
+# Allow example templates
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+.next/
+out/
+.DS_Store
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
