@@ -1,9 +1,9 @@
 """
 Auditor Agent — Agent 2
 Strictly verifies the generator's output BEFORE it reaches the user.
-Returns a structured JSON decision: PASS or BLOCK with full scoring breakdown.
+Returns a structured AuditResult with decision (PASS|BLOCK) and full scoring breakdown.
 NEVER generates new content. NEVER rewrites answers.
-Default behavior: when uncertain → BLOCK.
+Default behavior: when uncertain, returns BLOCK decision.
 """
 import json
 import logging
@@ -43,8 +43,9 @@ class AuditorAgent:
         search_context: str = "",
     ) -> AuditResult:
         """
-        Audit a generated response. Returns AuditResult with PASS or BLOCK.
-        If anything goes wrong, defaults to BLOCK.
+        Audit a generated response.
+        Returns AuditResult with decision=PASS or decision=BLOCK.
+        If anything goes wrong, defaults to BLOCK decision.
         """
         logger.info("Auditor Agent: beginning audit")
 

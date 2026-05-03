@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: verify-ai-backend
+    runtime: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: SERPER_API_KEY
+        sync: false
+      - key: GOOGLE_MAPS_API_KEY
+        sync: false
+      - key: GENERATOR_MODEL
+        value: gemini-2.5-flash
+      - key: AUDITOR_MODEL
+        value: gemini-2.5-flash
+      - key: EMBEDDING_MODEL
+        value: models/text-embedding-004
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: LOG_LEVEL
+        value: INFO
+      - key: MAX_RETRIES
+        value: "2"
+      - key: REQUEST_TIMEOUT
+        value: "45"
+      - key: SEARCH_MAX_RESULTS
+        value: "5"
+      - key: ENABLE_SEARCH_GROUNDING
+        value: "true"
+      - key: ENABLE_MAPS_INTEGRATION
+        value: "false"
+      - key: ENABLE_MULTI_AUDITOR
+        value: "true"
