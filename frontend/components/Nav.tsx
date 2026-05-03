@@ -51,7 +51,7 @@ export function Nav() {
             color: '#ffffff',
             letterSpacing: '-0.01em',
           }}>
-            FairZero
+            Verify AI
           </span>
           <span style={{
             fontSize: '0.6rem',

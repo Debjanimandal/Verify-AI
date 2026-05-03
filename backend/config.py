@@ -1,5 +1,5 @@
 """
-FairZero Backend Configuration
+Verify AI Backend Configuration
 Loads and validates all environment variables for the application.
 """
 from pydantic_settings import BaseSettings
@@ -72,7 +72,7 @@ def get_settings() -> Settings:
     # Log configuration status at startup
     logger = logging.getLogger(__name__)
     logger.info("═══════════════════════════════════════")
-    logger.info(" FairZero Configuration Loaded")
+    logger.info(" Verify AI Configuration Loaded")
     logger.info("═══════════════════════════════════════")
     logger.info(f" Generator model : {s.generator_model}")
     logger.info(f" Auditor model   : {s.auditor_model}")

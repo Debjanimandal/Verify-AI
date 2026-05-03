@@ -38,7 +38,7 @@ export default function AssistantPage() {
             textTransform: 'uppercase',
             color: 'rgba(255,255,255,0.3)',
           }}>
-            FairZero Assistant
+            Verify AI Assistant
           </span>
         </div>
         <h1 style={{

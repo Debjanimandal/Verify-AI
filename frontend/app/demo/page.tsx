@@ -56,7 +56,7 @@ export default function DemoPage() {
           marginBottom: '0.75rem',
           lineHeight: 1.1,
         }}>
-          See FairZero in action.
+          See Verify AI in action.
         </h1>
         <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.4)', maxWidth: '520px', lineHeight: 1.65 }}>
           Click any scenario below to run the full dual-agent pipeline live.

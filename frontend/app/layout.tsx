@@ -3,12 +3,12 @@ import './globals.css';
 import { Nav } from '@/components/Nav';
 
 export const metadata: Metadata = {
-  title: 'FairZero — Civic AI Safety System',
+  title: 'Verify AI — Civic AI Safety System',
   description:
-    'FairZero is a dual-agent civic AI system. Generator creates responses. Auditor verifies them. You see only safe output.',
+    'Verify AI is a dual-agent civic AI system. Generator creates responses. Auditor verifies them. You see only safe output.',
   keywords: ['civic AI', 'AI safety', 'dual-agent', 'hallucination detection', 'community AI'],
   openGraph: {
-    title: 'FairZero — Civic AI Safety System',
+    title: 'Verify AI — Civic AI Safety System',
     description: 'Safer AI for community questions. Every response is verified before you see it.',
     type: 'website',
   },

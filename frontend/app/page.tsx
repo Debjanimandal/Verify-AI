@@ -126,7 +126,7 @@ export default function LandingPage() {
             lineHeight: 1.7,
             marginBottom: '2.5rem',
           }}>
-            FairZero uses a dual-agent pipeline — one AI generates, another audits —
+            Verify AI uses a dual-agent pipeline — one AI generates, another audits —
             so community users only receive responses that have been verified for safety.
           </p>
         </FadeUp>
@@ -152,7 +152,7 @@ export default function LandingPage() {
                   cursor: 'pointer',
                 }}
               >
-                Try FairZero
+                Try Verify AI
                 <ArrowRight size={16} />
               </motion.button>
             </Link>
@@ -465,7 +465,7 @@ export default function LandingPage() {
         textAlign: 'center',
       }}>
         <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.2)' }}>
-          FairZero (Civic Edition) · Dual-Agent AI Safety System · Built with Gemini
+          Verify AI (Civic Edition) · Dual-Agent AI Safety System · Built with Gemini
         </p>
       </footer>
     </div>

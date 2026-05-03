@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <img src="https://img.shields.io/badge/Gemini%202.5%20Flash-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Gemini">
   <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI">
   <img src="https://img.shields.io/badge/Next.js%2016-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js">
@@ -8,7 +8,7 @@
 </p>
 
 <h1 align="center">
-  🛡️ FairZero — Civic AI Safety System
+  🛡️ Verify AI — Civic AI Safety System
 </h1>
 
 <p align="center">
@@ -21,7 +21,7 @@
 
 ## 📖 Table of Contents
 
-- [What is FairZero?](#-what-is-fairzero)
+- [What is Verify AI?](#-what-is-Verify AI)
 - [The Problem](#-the-problem)
 - [How the Pipeline Works](#-how-the-pipeline-works)
 - [Architecture](#-architecture)
@@ -44,9 +44,9 @@
 
 ---
 
-## 🧠 What is FairZero?
+## 🧠 What is Verify AI?
 
-FairZero is a **civic-first AI safety layer** built for communities where a wrong AI answer can cause real harm — fake NGO contacts, incorrect hospital info, fabricated government schemes, hallucinated phone numbers.
+Verify AI is a **civic-first AI safety layer** built for communities where a wrong AI answer can cause real harm — fake NGO contacts, incorrect hospital info, fabricated government schemes, hallucinated phone numbers.
 
 It solves this with a **dual-agent pipeline**:
 
@@ -71,7 +71,7 @@ Standard AI systems generate one answer. There's no second check. In civic and c
 | 🔴 Fabricated schemes | Hallucinated government scheme names, portals, and eligibility criteria |
 | 🔴 Overconfident advice | Legal or medical guidance delivered as fact without real verification |
 
-FairZero's Auditor catches all of these **before** the user sees them.
+Verify AI's Auditor catches all of these **before** the user sees them.
 
 ---
 
@@ -155,7 +155,7 @@ Verify-AI-/
 │   │   ├── DebugPanel.tsx      # Transparency panel (timing, models, search)
 │   │   └── PipelineStatus.tsx  # Live pipeline state animation
 │   ├── hooks/
-│   │   └── useFairZero.ts      # State machine hook (idle→generating→auditing→result)
+│   │   └── useVerify AI.ts      # State machine hook (idle→generating→auditing→result)
 │   ├── lib/
 │   │   ├── api.ts              # HTTP client + TypeScript types
 │   │   └── config.ts           # Sample + risky prompts
@@ -260,7 +260,7 @@ python -c "from config import get_settings; s = get_settings(); print('Gemini ke
 
 Expected output:
 ```
-FairZero Configuration Loaded
+Verify AI Configuration Loaded
  Generator model : gemini-2.5-flash
  Auditor model   : gemini-2.5-flash
  Search grounding: ✓ tavily     ← shows if Tavily key is set
@@ -308,7 +308,7 @@ python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 You should see:
 ```
 INFO:     Uvicorn running on http://0.0.0.0:8000
-FairZero backend starting...
+Verify AI backend starting...
 Generator model: gemini-2.5-flash
 Auditor model:   gemini-2.5-flash
 Search provider: tavily
@@ -355,7 +355,7 @@ The only **required** key. Without it, nothing works.
    GEMINI_API_KEY=AIzaSy...
    ```
 
-> **Model**: FairZero uses `gemini-2.5-flash` by default. You can change this in `.env`.
+> **Model**: Verify AI uses `gemini-2.5-flash` by default. You can change this in `.env`.
 
 > **Quota note**: Free tier has limits per minute/day. If you hit `429 RESOURCE_EXHAUSTED`, wait a minute or enable billing in Google Cloud.
 
@@ -372,7 +372,7 @@ Enables real-time web search grounding. Without it, Gemini relies only on its tr
    TAVILY_API_KEY=tvly-...
    ```
 
-**What it does:** Before generating a response, FairZero sends the user's query to Tavily, retrieves top 5 real-time web results, and injects that context into the Generator's prompt. This dramatically reduces hallucinations for civic queries.
+**What it does:** Before generating a response, Verify AI sends the user's query to Tavily, retrieves top 5 real-time web results, and injects that context into the Generator's prompt. This dramatically reduces hallucinations for civic queries.
 
 ---
 
@@ -387,7 +387,7 @@ A Google Search API used as fallback if Tavily is unavailable.
    SERPER_API_KEY=your_serper_key_here
    ```
 
-> FairZero automatically uses **Tavily first**, then falls back to Serper if Tavily fails.
+> Verify AI automatically uses **Tavily first**, then falls back to Serper if Tavily fails.
 
 ---
 
@@ -475,7 +475,7 @@ The core endpoint. Runs the full Generator → Auditor → Decision pipeline.
 ```json
 {
   "status": "ok",
-  "service": "FairZero API",
+  "service": "Verify AI API",
   "generator_model": "gemini-2.5-flash",
   "auditor_model": "gemini-2.5-flash",
   "search_provider": "tavily",
@@ -516,7 +516,7 @@ The core endpoint. Runs the full Generator → Auditor → Decision pipeline.
 
 ## 🛡️ Safety Logic
 
-FairZero's core safety principle: **when in doubt, BLOCK**.
+Verify AI's core safety principle: **when in doubt, BLOCK**.
 
 ### Decision Flow
 
@@ -670,5 +670,6 @@ MIT License — see [LICENSE](LICENSE) for details.
 ---
 
 <p align="center">
-  Built with ❤️ for civic communities · <strong>FairZero — AI that verifies before it answers.</strong>
+  Built with ❤️ for civic communities · <strong>Verify AI — AI that verifies before it answers.</strong>
 </p>
+

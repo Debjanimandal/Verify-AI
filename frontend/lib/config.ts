@@ -8,10 +8,10 @@ export const config = {
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000',
 
   // App identity
-  appName: 'FairZero',
+  appName: 'Verify AI',
   appTagline: 'Civic AI with a Safety Layer',
   appDescription:
-    'FairZero is a dual-agent civic AI system that verifies every response before it reaches you. Generator creates — Auditor verifies — you see only safe output.',
+    'Verify AI is a dual-agent civic AI system that verifies every response before it reaches you. Generator creates — Auditor verifies — you see only safe output.',
 
   // Sample prompts for the demo and assistant pages
   samplePrompts: [

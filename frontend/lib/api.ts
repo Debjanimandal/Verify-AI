@@ -1,5 +1,5 @@
 /**
- * FairZero API client
+ * Verify AI API client
  * Handles communication with the Python FastAPI backend.
  * All AI logic stays server-side — this is only the HTTP layer.
  */
@@ -68,7 +68,7 @@ export class APIError extends Error {
 }
 
 /**
- * Submit a query through the full FairZero dual-agent pipeline.
+ * Submit a query through the full Verify AI dual-agent pipeline.
  * Returns a structured response with PASS or BLOCK decision.
  */
 export async function submitQuery(request: QueryRequest): Promise<QueryResponse> {
@@ -86,7 +86,7 @@ export async function submitQuery(request: QueryRequest): Promise<QueryResponse>
     if (err instanceof Error && err.name === 'AbortError') {
       throw new APIError('Request timed out. The AI pipeline is taking too long.', 408);
     }
-    throw new APIError('Could not connect to the FairZero backend. Is it running?');
+    throw new APIError('Could not connect to the Verify AI backend. Is it running?');
   }
 
   if (!response.ok) {

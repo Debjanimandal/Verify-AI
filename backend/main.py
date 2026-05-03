@@ -1,5 +1,5 @@
 """
-FairZero Backend — FastAPI Application
+Verify AI Backend — FastAPI Application
 Dual-agent civic AI safety system.
 
 Pipeline: User Input → Search Grounding → Generator Agent → Auditor Agent → Decision Engine → Frontend
@@ -51,19 +51,19 @@ _search = SearchService(
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("FairZero backend starting...")
+    logger.info("Verify AI backend starting...")
     logger.info(f"Generator model: {settings.generator_model}")
     logger.info(f"Auditor model:   {settings.auditor_model}")
     logger.info(f"Search provider: {_search.active_provider or 'none (no API keys)'}")
     logger.info(f"Maps enabled:    {bool(settings.google_maps_api_key)}")
     yield
-    logger.info("FairZero backend shutting down.")
+    logger.info("Verify AI backend shutting down.")
 
 
 # ─── FastAPI App ────────────────────────────────────────────────────────────────
 
 app = FastAPI(
-    title="FairZero API",
+    title="Verify AI API",
     description="Dual-agent civic AI safety system — Generator + Auditor pipeline",
     version="1.0.0",
     lifespan=lifespan,
@@ -86,7 +86,7 @@ async def health_check():
     """Health check endpoint."""
     return {
         "status": "ok",
-        "service": "FairZero API",
+        "service": "Verify AI API",
         "generator_model": settings.generator_model,
         "auditor_model": settings.auditor_model,
         "search_provider": _search.active_provider,
@@ -97,7 +97,7 @@ async def health_check():
 @app.post("/api/query", response_model=QueryResponse)
 async def query(request: QueryRequest):
     """
-    Main FairZero pipeline endpoint.
+    Main Verify AI pipeline endpoint.
 
     Flow:
       0. (Optional) Search Grounding — fetch real-time web context

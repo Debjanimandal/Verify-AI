@@ -23,7 +23,7 @@ export default function AboutPage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
             <Shield size={14} style={{ color: 'rgba(255,255,255,0.3)' }} />
             <span style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)' }}>
-              About FairZero
+              About Verify AI
             </span>
           </div>
           <h1 style={{
@@ -38,7 +38,7 @@ export default function AboutPage() {
             A trust layer for civic AI.
           </h1>
           <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, maxWidth: '560px' }}>
-            FairZero is not just a chatbot. It is a browser-based civic AI safety system
+            Verify AI is not just a chatbot. It is a browser-based civic AI safety system
             built to protect community users from harmful or misleading AI-generated information.
           </p>
         </div>
@@ -56,7 +56,7 @@ export default function AboutPage() {
             In real community contexts, these errors can cause genuine harm.
           </p>
           <p>
-            FairZero solves this by introducing a mandatory verification layer between AI generation
+            Verify AI solves this by introducing a mandatory verification layer between AI generation
             and user delivery. No response reaches a user without passing an independent safety audit.
           </p>
         </Section>
@@ -69,7 +69,7 @@ export default function AboutPage() {
         <Section icon={<GitBranch size={16} />} label="Architecture">
           <h2>The dual-agent pipeline</h2>
           <p>
-            FairZero separates the generation and verification responsibilities into two fully independent agents.
+            Verify AI separates the generation and verification responsibilities into two fully independent agents.
             The agent that creates a response is never the agent that approves it.
           </p>
 
