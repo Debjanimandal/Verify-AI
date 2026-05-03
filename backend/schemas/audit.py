@@ -1,7 +1,7 @@
 """
-Pydantic schemas for FairZero — enhanced with multi-auditor + search grounding.
+Pydantic schemas for Verify AI — Full overhaul with scoring, embeddings, pipeline stages.
 """
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, model_validator
 from typing import Optional, Any
 from enum import Enum
 import time
@@ -57,7 +57,46 @@ class SearchGrounding(BaseModel):
     maps_results: list[dict] = []
 
 
+# ─── Scoring schemas ──────────────────────────────────────────────────────────
+
+class ScoringDimension(BaseModel):
+    """Single dimension of the trust score."""
+    name: str                      # human-readable label
+    score: float                   # 0.0 – 1.0
+    weight: float                  # contribution weight
+    explanation: str               # why this score was given
+
+
+class ScoringBreakdown(BaseModel):
+    """
+    5-dimension trust scoring model.
+    Each dimension is scored 0–1 and weighted into a composite trust score.
+    """
+    # Dimensions
+    factual_accuracy: ScoringDimension
+    specificity_risk: ScoringDimension     # high specificity = higher risk
+    source_coverage: ScoringDimension      # how well sources back the claims
+    consistency: ScoringDimension          # prompt vs response semantic match
+    hallucination_risk: ScoringDimension   # computed via embedding similarity
+
+    # Derived composites
+    composite_trust_score: float           # 0.0 – 1.0
+    embedding_similarity: float            # cosine similarity of prompt vs response
+    source_overlap_score: float            # how much response content came from sources
+
+    # Computed recommendation
+    recommended_decision: Decision
+    confidence: float                      # 0.0 – 1.0
+
+
 # ─── Auditor output contract ───────────────────────────────────────────────────
+
+class AuditFlag(BaseModel):
+    """Detailed flag with confidence."""
+    flag: str
+    confidence: float = 1.0
+    detail: str = ""
+
 
 class AuditResult(BaseModel):
     """Strict JSON contract for a single Auditor Agent output."""
@@ -66,6 +105,8 @@ class AuditResult(BaseModel):
     reason: str
     flags: list[str] = []
     confidence: float = 1.0          # 0.0–1.0
+    detailed_flags: list[AuditFlag] = []
+    scoring_notes: str = ""          # human-readable scoring notes from auditor
 
 
 class MultiAuditResult(BaseModel):
@@ -79,6 +120,16 @@ class MultiAuditResult(BaseModel):
     final_risk_level: RiskLevel = RiskLevel.HIGH
     final_reason: str = ""
     final_flags: list[str] = []
+
+
+# ─── Pipeline stage tracking ──────────────────────────────────────────────────
+
+class PipelineStage(BaseModel):
+    """Timing and result for each pipeline stage."""
+    name: str
+    status: str                   # "complete", "error", "skipped"
+    duration_ms: float
+    details: Optional[str] = None
 
 
 # ─── Debug schema (always complete shape) ─────────────────────────────────────
@@ -97,6 +148,7 @@ class DebugInfo(BaseModel):
     audit_reason: str = ""
     audit_flags: list[str] = []
     audit_confidence: float = 0.0
+    audit_detailed_flags: list[dict] = []
 
     # Multi-auditor details
     fact_audit: Optional[dict] = None
@@ -108,6 +160,16 @@ class DebugInfo(BaseModel):
     search_query: Optional[str] = None
     search_results_count: int = 0
     is_location_query: bool = False
+
+    # ── NEW: Scoring breakdown ────────────────────────────────────────────────
+    scoring_breakdown: Optional[dict] = None
+    embedding_similarity: float = 0.0
+    source_overlap_score: float = 0.0
+    composite_trust_score: float = 0.0
+    hallucination_score: float = 0.0          # 1 - hallucination_risk.score
+
+    # ── NEW: Pipeline stage timings ───────────────────────────────────────────
+    pipeline_stages: list[dict] = []
 
     # Model info
     generator_model: str = ""

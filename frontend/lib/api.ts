@@ -1,5 +1,5 @@
 /**
- * Verify AI API client
+ * Verify AI API client — v2
  * Handles communication with the Python FastAPI backend.
  * All AI logic stays server-side — this is only the HTTP layer.
  */
@@ -23,6 +23,47 @@ export interface SearchResult {
   relevance_score: number;
 }
 
+// ── Scoring types ──────────────────────────────────────────────────────────────
+
+export interface ScoringDimension {
+  name: string;
+  score: number;           // 0.0 – 1.0
+  weight: number;
+  explanation: string;
+}
+
+export interface ScoringBreakdown {
+  factual_accuracy: ScoringDimension;
+  specificity_risk: ScoringDimension;
+  source_coverage: ScoringDimension;
+  consistency: ScoringDimension;
+  hallucination_risk: ScoringDimension;
+  composite_trust_score: number;
+  embedding_similarity: number;
+  source_overlap_score: number;
+  recommended_decision: Decision;
+  confidence: number;
+}
+
+// ── Pipeline stage types ────────────────────────────────────────────────────────
+
+export interface PipelineStage {
+  name: string;
+  status: 'complete' | 'error' | 'skipped';
+  duration_ms: number;
+  details?: string;
+}
+
+// ── Audit flag types ────────────────────────────────────────────────────────────
+
+export interface DetailedFlag {
+  flag: string;
+  confidence: number;
+  detail: string;
+}
+
+// ── Debug info ─────────────────────────────────────────────────────────────────
+
 export interface DebugInfo {
   stage: string;
   error?: string | null;
@@ -34,6 +75,7 @@ export interface DebugInfo {
   audit_reason: string;
   audit_flags: string[];
   audit_confidence: number;
+  audit_detailed_flags: DetailedFlag[];
   // Search grounding
   search_provider?: string | null;
   search_query?: string | null;
@@ -45,6 +87,14 @@ export interface DebugInfo {
   // Timing
   request_id: string;
   duration_ms: number;
+  // ── NEW: Scoring ──────────────────────────────────────────────────────────
+  scoring_breakdown?: ScoringBreakdown | null;
+  embedding_similarity: number;
+  source_overlap_score: number;
+  composite_trust_score: number;
+  hallucination_score: number;
+  // ── NEW: Pipeline stages ──────────────────────────────────────────────────
+  pipeline_stages: PipelineStage[];
 }
 
 export interface QueryResponse {
@@ -69,7 +119,7 @@ export class APIError extends Error {
 
 /**
  * Submit a query through the full Verify AI dual-agent pipeline.
- * Returns a structured response with PASS or BLOCK decision.
+ * Returns a structured response with PASS or BLOCK decision + full scoring.
  */
 export async function submitQuery(request: QueryRequest): Promise<QueryResponse> {
   const url = `${config.backendUrl}/api/query`;
@@ -80,7 +130,7 @@ export async function submitQuery(request: QueryRequest): Promise<QueryResponse>
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(request),
-      signal: AbortSignal.timeout(60_000), // 60s timeout
+      signal: AbortSignal.timeout(90_000), // 90s timeout (scoring adds time)
     });
   } catch (err: unknown) {
     if (err instanceof Error && err.name === 'AbortError') {
